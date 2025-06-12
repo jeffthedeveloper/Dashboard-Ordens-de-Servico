@@ -1,5 +1,3 @@
-Perfeito! Aqui está o `README.md` **ajustado conforme solicitado**: sem menção ao domínio `manus.space` ou qualquer hospedagem específica. Ele está agora **neutro e pronto para adaptação futura** com GitHub Pages, Vercel e backend à sua escolha.
-
 ---
 
 ## ✅ Versão final do `README.md`:
