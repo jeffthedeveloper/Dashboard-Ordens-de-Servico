@@ -1,0 +1,25 @@
+# Ignore planilhas e arquivos grandes
+*.xlsx
+*.xls
+*.csv
+
+# Ignore arquivos de configuração sensível
+config.py
+
+# Ignore arquivos de ambiente
+.env
+
+# Cache e build
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+
+# VSCode, JetBrains
+.vscode/
+.idea/
+
+# Outros arquivos que podem conter dados temporários
+*.log
+
