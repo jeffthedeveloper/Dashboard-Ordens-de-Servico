@@ -5,9 +5,14 @@
 
 # Ignore arquivos de configuração sensível
 config.py
+env-instructions.txt
 
 # Ignore arquivos de ambiente
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Cache e build
 __pycache__/
@@ -15,6 +20,17 @@ __pycache__/
 *.pyo
 *.pyd
 *.swp
+node_modules/
+dist/
+build/
+.next/
+out/
+
+# Banco de dados
+database/
+*.db
+*.sqlite
+*.sqlite3
 
 # VSCode, JetBrains
 .vscode/
@@ -22,4 +38,29 @@ __pycache__/
 
 # Outros arquivos que podem conter dados temporários
 *.log
+logs/
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# Pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+
+
+database/dev.db
+
 

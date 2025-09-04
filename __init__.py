@@ -1,41 +1,42 @@
+import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from flask_cors import CORS
+from dotenv import load_dotenv
 
-# Inicialização das extensões
+# Carregar variáveis de ambiente
+load_dotenv()
+
 db = SQLAlchemy()
-migrate = Migrate()
 
-def create_app(config_name='default'):
-    """Função factory para criar a aplicação Flask"""
+def create_app():
     app = Flask(__name__)
     
-    # Configuração da aplicação
-    if config_name == 'default':
-        app.config.from_object('app.config.Config')
-    else:
-        app.config.from_object(f'app.config.{config_name.capitalize()}Config')
+    # Configurações do banco de dados
+    database_url = os.environ.get('DATABASE_URL', 'sqlite:///database/dev.db')
+    app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
-    # Inicialização das extensões com a aplicação
+    # Configurações de segurança
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key')
+    
     db.init_app(app)
-    migrate.init_app(app, db)
-    CORS(app)
-    
-    # Registro de blueprints
-    from app.routes.ordens import ordens_bp
-    from app.routes.clientes import clientes_bp
-    from app.routes.tecnicos import tecnicos_bp
-    from app.routes.relatorios import relatorios_bp
-    
-    app.register_blueprint(ordens_bp, url_prefix='/api/ordens')
+
+    # Registrar blueprints
+    from .routes.auth import auth_bp
+    app.register_blueprint(auth_bp, url_prefix='/api')
+
+    from .routes.cidades import cidades_bp
+    from .routes.clientes import clientes_bp
+    from .routes.ordens import ordens_bp
+    from .routes.relatorios import relatorios_bp
+    from .routes.tecnicos import tecnicos_bp
+
+    app.register_blueprint(cidades_bp, url_prefix='/api/cidades')
     app.register_blueprint(clientes_bp, url_prefix='/api/clientes')
-    app.register_blueprint(tecnicos_bp, url_prefix='/api/tecnicos')
+    app.register_blueprint(ordens_bp, url_prefix='/api/ordens')
     app.register_blueprint(relatorios_bp, url_prefix='/api/relatorios')
-    
-    # Rota de teste
-    @app.route('/api/status')
-    def status():
-        return {'status': 'online', 'version': '2.0.0'}
-    
+    app.register_blueprint(tecnicos_bp, url_prefix='/api/tecnicos')
+
     return app
+
+
