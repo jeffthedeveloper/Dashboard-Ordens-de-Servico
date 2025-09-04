@@ -5,17 +5,20 @@ services:
   - type: web
     name: dashboard-os-api
     env: python
-    buildCommand: "pip install -r backend/requirements.txt"
-    startCommand: "cd backend && gunicorn wsgi:app"
+    rootDir: backend
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn wsgi:app --bind 0.0.0.0:$PORT"
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.6
       - key: FLASK_APP
-        value: "main:app"
+        value: "wsgi:app"
       - key: FLASK_ENV
         value: production
       - key: DATABASE_URL
-        value: "sqlite:///../database/dev.db"
+        value: "sqlite:///database/dev.db"
+      - key: SECRET_KEY
+        fromSecret: SECRET_KEY
       - key: ADMIN_USER
         fromSecret: ADMIN_USER
       - key: ADMIN_PASS
@@ -36,3 +39,4 @@ services:
       - type: rewrite
         source: /*
         destination: /index.html
+
