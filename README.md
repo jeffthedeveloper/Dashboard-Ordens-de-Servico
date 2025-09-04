@@ -1,6 +1,6 @@
 ## ✅ Versão final do `README.md`:
 
-```markdown
+
 # 📊 Dashboard de Ordens de Serviço
 
 Sistema completo para gestão e visualização interativa de ordens de serviço, desenvolvido ao longo de mais de 1 ano. Reúne funcionalidades de cadastro, análise, exportação de relatórios e visualização geográfica. Com interface moderna e responsiva, atende a operações técnicas que exigem controle em tempo real e métricas de desempenho.
@@ -121,7 +121,6 @@ Desenvolvido por **Jefferson Firmino**
 ## 📄 Licença
 
 Este projeto está licenciado sob a [Licença MIT](./LICENSE).
-```
 
 ---
 
