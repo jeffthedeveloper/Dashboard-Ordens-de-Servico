@@ -88,7 +88,7 @@ URLs e domínios serão configurados conforme ambiente de produção escolhido.
 
 ## 📁 Estrutura do Repositório
 
-```
+```bash
 
 📦 raiz/
 ├── frontend/
