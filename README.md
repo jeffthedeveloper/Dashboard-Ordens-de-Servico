@@ -1,5 +1,3 @@
----
-
 ## ✅ Versão final do `README.md`:
 
 ```markdown
