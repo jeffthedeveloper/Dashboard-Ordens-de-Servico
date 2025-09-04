@@ -1,21 +1,21 @@
+# Arquivo: render.yaml
+
 services:
   # Serviço para o Backend (API Flask)
   - type: web
     name: dashboard-os-api
     env: python
-    rootDir: backend
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn --bind 0.0.0.0:$PORT 'wsgi:app'"
+    buildCommand: "pip install -r backend/requirements.txt"
+    startCommand: "cd backend && gunicorn wsgi:app"
     envVars:
       - key: PYTHON_VERSION
-        value: 3.10.6 # Ou a versão que preferir
+        value: 3.10.6
       - key: FLASK_APP
-        value: "main:app" # Informa ao Flask onde está a aplicação
+        value: "main:app"
       - key: FLASK_ENV
         value: production
-      # Adicione suas variáveis de ambiente/segredos aqui
       - key: DATABASE_URL
-        value: "sqlite:///../database/dev.db" # Caminho para o DB a partir da pasta backend
+        value: "sqlite:///../database/dev.db"
       - key: ADMIN_USER
         fromSecret: ADMIN_USER
       - key: ADMIN_PASS
@@ -23,15 +23,15 @@ services:
       - key: AUTH_TOKEN
         fromSecret: AUTH_TOKEN
 
-  # Serviço para o Frontend (React Static Site)
+  # Serviço para o Frontend (React)
   - type: static_site
     name: dashboard-os-frontend
     rootDir: frontend
     buildCommand: "npm install && npm run build"
-    publishPath: dist # Vite gera na pasta 'dist' por padrão
+    publishPath: dist
     envVars:
       - key: VITE_API_URL
-        value: https://dashboard-os-api.onrender.com # URL do serviço de backend
+        value: https://dashboard-os-api.onrender.com
     routes:
       - type: rewrite
         source: /*

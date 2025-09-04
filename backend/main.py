@@ -1,13 +1,12 @@
+# Arquivo: backend/main.py (versão corrigida)
+
 from app import create_app
+import os
 from flask import send_from_directory
-import os  # Importe o 'os' para a função serve funcionar
 
 app = create_app()
 
-# Configura o Flask para servir os arquivos estáticos da pasta 'static'
-# Esta rota é para a abordagem de servir tudo pelo Flask, se optar por ela.
-
-
+# configura o Flask para servir os arquivos estáticos da pasta 'static'
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
