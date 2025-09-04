@@ -1,0 +1,35 @@
+services:
+  # Serviço para o Backend (API Flask)
+  - type: web
+    name: dashboard-os-api
+    env: python
+    rootDir: backend
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn --bind 0.0.0.0:$PORT backend.main:app"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.6
+      - key: ADMIN_USER
+        fromSecret: ADMIN_USER
+      - key: ADMIN_PASS
+        fromSecret: ADMIN_PASS
+      - key: AUTH_TOKEN
+        fromSecret: AUTH_TOKEN
+      - key: FLASK_ENV
+        value: production
+      - key: DATABASE_URL
+        value: sqlite:///database/dev.db
+
+
+
+  # Serviço para o Frontend (React)
+  - type: static_site
+    name: dashboard-os-frontend
+    rootDir: frontend
+    buildCommand: "npm install && npm run build"
+    publishPath: build
+    envVars:
+      - key: VITE_API_URL
+        value: https://dashboard-os-api.onrender.com
+
+
