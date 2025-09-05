@@ -1,0 +1,32 @@
+name: Build com npm e limpeza de cache
+
+on:
+  workflow_dispatch:    # Permite rodar manualmente
+  push:                 # Ou ao fazer push na branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v4
+
+    - name: Instalar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'   # Altere para a versão do seu projeto, se necessário
+
+    - name: Limpar dependências e cache antigo
+      run: |
+        rm -rf node_modules dist node_modules/.vite
+
+    - name: Instalar dependências
+      run: npm install
+
+    - name: Rodar build
+      run: npm run build
+
+    # (Opcional) Adicione outros comandos npm que quiser
+    # - name: Rodar testes
+    #   run: npm test
