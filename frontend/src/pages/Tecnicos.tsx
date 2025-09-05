@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import dadosTecnicos from '../assets/dados_tecnicos.json';
-import dadosTecnicosCount from '../assets/dados_tecnicos_count.json';
-import dadosOS from '../assets/dados_os.json';
+
+// Imports corrigidos - subindo 2 níveis para chegar em src/assets/
+import dadosTecnicos from '../../assets/dados_tecnicos.json';
+import dadosTecnicosCount from '../../assets/dados_tecnicos_count.json';
+import dadosOS from '../../assets/dados_os.json';
 
 const Tecnicos: React.FC = () => {
   const [tecnicos, setTecnicos] = useState<any[]>([]);
