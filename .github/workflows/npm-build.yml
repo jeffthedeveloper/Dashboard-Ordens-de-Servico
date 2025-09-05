@@ -1,8 +1,8 @@
-name: Build com npm e limpeza de cache
+name: Build do frontend com npm e limpeza de cache
 
 on:
-  workflow_dispatch:    # Permite rodar manualmente
-  push:                 # Ou ao fazer push na branch
+  workflow_dispatch:
+  push:
 
 jobs:
   build:
@@ -12,21 +12,20 @@ jobs:
     - name: Checkout do código
       uses: actions/checkout@v4
 
-    - name: Instalar Node.js
+    - name: Configurar Node.js 22.12
       uses: actions/setup-node@v4
       with:
-        node-version: '20'   # Altere para a versão do seu projeto, se necessário
+        node-version: '22.12'
 
     - name: Limpar dependências e cache antigo
+      working-directory: ./frontend
       run: |
         rm -rf node_modules dist node_modules/.vite
 
     - name: Instalar dependências
+      working-directory: ./frontend
       run: npm install
 
     - name: Rodar build
+      working-directory: ./frontend
       run: npm run build
-
-    # (Opcional) Adicione outros comandos npm que quiser
-    # - name: Rodar testes
-    #   run: npm test
