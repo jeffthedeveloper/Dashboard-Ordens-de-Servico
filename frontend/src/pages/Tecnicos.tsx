@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-// Imports corrigidos - subindo 2 níveis para chegar em src/assets/
-import dadosTecnicos from '../../assets/dados_tecnicos.json';
+// IMPORs Corrigidos
 import dadosTecnicosCount from '../../assets/dados_tecnicos_count.json';
 import dadosOS from '../../assets/dados_os.json';
 
@@ -13,13 +12,15 @@ const Tecnicos: React.FC = () => {
   const [desempenhoTecnicos, setDesempenhoTecnicos] = useState<any[]>([]);
 
   useEffect(() => {
-    // Filtrar técnicos válidos
-    const tecnicosValidos = dadosTecnicos
-      .filter(item => item['LISTA DE TÉCNICOS'] && item['LISTA DE TÉCNICOS'] !== '')
-      .map(item => ({
-        nome: item['LISTA DE TÉCNICOS'],
-        identificacao_rua: item['RUA'] || '',
-        identificacao_app: item['APP'] || ''
+    // Como não temos dados_tecnicos.json, vamos criar a lista a partir dos dados que temos
+    const nomesTecnicos = Array.from(new Set(dadosTecnicosCount.map(item => item.tecnico)));
+    
+    const tecnicosValidos = nomesTecnicos
+      .filter(nome => nome && nome !== '')
+      .map(nome => ({
+        nome: nome,
+        identificacao_rua: '', // Você pode ajustar isso se tiver esses dados
+        identificacao_app: ''   // Você pode ajustar isso se tiver esses dados
       }));
     
     setTecnicos(tecnicosValidos);
@@ -30,7 +31,7 @@ const Tecnicos: React.FC = () => {
       .map(item => ({
         nome: item.tecnico,
         total: item.total,
-        media_diaria: (item.total / 30).toFixed(1) // Estimativa mensal
+        media_diaria: (item.total / 30).toFixed(1)
       }));
     
     setDesempenhoTecnicos(desempenho);
